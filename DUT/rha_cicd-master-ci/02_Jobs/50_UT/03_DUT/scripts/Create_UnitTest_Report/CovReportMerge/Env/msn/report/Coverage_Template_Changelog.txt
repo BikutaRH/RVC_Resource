@@ -1,0 +1,21 @@
+v0 Dowwnloaded from http://rb03988.rsd.renesas.com/subversion/mcal_repo/RH850_X2x/trunk/internal/Process_NA-21007-DM/90_Common/02_Guideline/00_Template/07_UT/RH850_X2x_MSN_DUT_CR.xlsm
+Rev 123665
+================================================================================
+Changed for CICD:
+--------------------------------------------------
+v1 (10/03/2022) : Change sheetname format for prevent long module file name make excel error
+*_Result -> *_R
+*_Source -> *_S
+--------------------------------------------------
+v2 (13/03/2022) : Change all message print on message box to status bar
+--------------------------------------------------
+v3 (30/03/2022) : 
++ Test_Environment sheet: Remove X2x environment detail information.
++ Result Summary sheet: Correct formula to check reviewed LOC, change total row from 10000 to row 20001
++ Tmp_S sheet: change Code Review Comment column to get value list from Justification sheet
+--------------------------------------------------
+v4 (05/07/2022) :
++ Correct efct_not_effective_line formula to get number in cell AJ2 of _S sheet instead of AH2
+--------------------------------------------------
+v5 (19/04/2023) :
++ Improve algorithm for reducing time performance and file size

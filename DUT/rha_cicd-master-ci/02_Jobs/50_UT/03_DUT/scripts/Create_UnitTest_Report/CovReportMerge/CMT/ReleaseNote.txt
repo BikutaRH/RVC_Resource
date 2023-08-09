@@ -1,0 +1,40 @@
+*** 17-Nov-2017 ***
+CMT version 1.0.0 (Official version)
+
+Release items
+./
++---exec
+    +---calc_structure.exe     : V1.0
+    +---merge_branchcheck.exe  : V1.0
+    +---merge_postprocess.exe  : V1.0
+    +---merge_preprocess.exe   : V1.0
+    +---merge_process.exe      : V1.0
+    +---strip_comment.exe      : V1.0
+    +---Doc2Text.py            : V1.0
+    \---Text2Doc.py            : V1.0
+
+  1. CMT supports the following functions.
+    (1) Coverage result files merge function
+        - Merging Coverage result files (C0, C1, MC/DC) measured with Cantata.
+    (2) Coverage result analysis function
+        - Analyzes the Coverage result data (C0, C1, MC/DC), and outputs Coverage result data analysis files.
+
+*** 06-Jul-2022 ***
+CMT_CI version 1.0.0 (Un-official version, use in CI system)
+Based on *** 17-Nov-2017 *** CMT version 1.0.0 (Official version)
+
+Release items
+./
++---exec
+    +---ctr_analysis.exe       : V1.0
+    +---CompileCheck.py        : V1.0
+
+  1. CMT supports the following functions.
+    (1) Coverage result files merge function
+        - Merging Coverage result files (C0, C1, MC/DC) measured with Cantata.
+    (2) Coverage result analysis function
+        - Analyzes the Coverage result data (C0, C1, MC/DC), and outputs Coverage result data analysis files.
+  NOTE: 
+  + Add "--preprocessor_logging" option to project's igp.cop before execute Cantata, then run CompileCheck.py to get the uncompile data.
+  + Docx file can be prepared by copy the source files directly to MS Word (without Cantata coverage color highlighting).
+

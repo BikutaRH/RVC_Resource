@@ -1,0 +1,41 @@
+#
+# Cantata Project-Level Options
+#
+# The options set in this file will be inherited by each test in the project.
+#
+# WARNING: Do not alter this file manually.
+#
+#tool.use=true
+#tool.tests=Cantata
+#tool.version=2
+"--analyse"
+"--ci:--instr:stmt;func;rel;loop;call;decn;block;log;"
+"--parse:--line_directives"
+"--parse:-W2"
+"--sm:--call_seq_code"
+"--comp:x86-Win32-gcc8.2-bundled"
+
+#User Section
+"--preprocessor_logging"
+"--ci:--instr_macros:?*DEM?*",
+"--ci:--instr_macros:?*DET?*",
+"--ci:--instr_macros:?*ENTER?*",
+"--ci:--instr_macros:?*EXIT?*",
+"--ci:--instr_macros:?*EXECUTE?*",
+"--ci:--instr_macros:?*RH850_SV?*",
+"--ci:--instr_macros:?*RSCAN?*",
+"--ci:--instr_macros:?*PACK_ADDRESS?*",
+"--ci:--instr_macros:?*COPY_MAC_ADDRESS?*",
+"--ci:--instr_macros:?*DF_WRITE32?*",
+"--ci:--instr_macros:?*_SYNCP?*",
+"--ci:--instr_macros:?*ASM_HALT?*",
+"--ci:--instr_macros:?*RESET_CALLOUT?*",
+"--ci:--instr_macros:?*DMA_ISR_TEMPLATE?*"
+"--ci:--instr_macros:?*SPI_REG_VERIFY?*"
+"--ci:--instr_macros:?*SPI_REG_WRITE_ONLY?*"
+"--ci:--instr_macros:?*SPI_REG_OR?*"
+"--ci:--instr_macros:?*SPI_REG_AND?*"
+"--ci:--instr_macros:?*SPI_WRITE_VERIFY_REG?*"
+"--ci:--instr_macros:?*SPI_WRITE_VERIFY_AND_REG?*"
+"--ci:--instr_macros:?*SPI_WRITE_VERIFY_OR_REG?*"
+"--ci:--instr_macros:?*SPI_WRITE_VERIFY_AND_OR_REG?*"

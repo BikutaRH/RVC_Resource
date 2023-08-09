@@ -1,0 +1,13 @@
+.vscode/*
+!.vscode/settings.json
+.idea
+.*.config.json
+**/bin/Debug
+**/__pycache__
+**/*.pyc
+**.log
+rha_cicd-master-ci/02_Jobs/40_CD/04_CompilationCheck/CantataWS/**
+rha_cicd-master-ci/02_Jobs/40_CD/04_CompilationCheck/MergeWorkspace/**
+rha_cicd-master-ci/02_Jobs/50_UT/03_DUT/VARIABLE_PROPERTIES.properties
+rha_cicd-master-ci/02_Jobs/40_CD/04_CompilationCheck/Source_Path.json
+rha_cicd-master-ci/02_Jobs/40_CD/01_QAC_Annsrc/VARIABLE_PROPERTIES.properties

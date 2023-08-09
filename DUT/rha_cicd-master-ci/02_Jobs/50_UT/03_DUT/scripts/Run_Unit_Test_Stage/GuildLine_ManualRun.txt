@@ -1,0 +1,23 @@
+Script location: 
+Clone https://gitlab.rvc.renesas.com/mcu-software/rh-autosar-software-2/rha_cicd/-/tree/master/02_Jobs/50_UT/03_DUT/Workspace
+
+1) Rebuild your configuration file (arxml config)
+2) Update CanttDir.json (get stub module, Driver Code - all *.c and *.h target) - Currently Tool get input which is prepared by MO before.
+3) Create Dir: C:/Workspace/CantataWorkSpace (Default)
+4) make sure you can run sh (Windown + r => cmd => sh can be executed)
+5) Related Enviroment of Cantata is added. 
+CANTATA_GENERATOR   C:\Workspace\CantataGenerator\sh;C:\Workspace\CantataGenerator\py;C:\Workspace\CantataGenerator\bin;
+CANTATAC            C:\qa_systems\cantata
+6) Map U your Repo
+
+
+Script:
+Cd to Workspace
+Run DUT_X2x_Automation_Running.bat U2A16 gpt C:/Workspace/CantataWorkSpace GPT CFG01 CFG02 ......
+set DVC=%1  ==> YOUR DEVICE
+set MSN=%2 ==> YOUR MODULE lower
+set WorkSpace=%3 ==> C:/Workspace/CantataWorkSpace
+set MSNUpper=%4 ==> YOUR MODULE UPPER
+set CFG=%5 ==> Your Target Config
+
+Note: still contain Bug for Cantata 9.0.

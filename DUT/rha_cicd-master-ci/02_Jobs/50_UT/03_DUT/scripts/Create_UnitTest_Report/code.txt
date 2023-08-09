@@ -1,0 +1,213 @@
+Sub Insert_TCs_Button_news()
+    Sheets("TestCase List").Select
+    Call Insert_TCs_news
+End Sub
+
+Sub Insert_Result_Button_news()
+    Sheets("TestCase List").Select
+    Call Insert_Result_news
+End Sub
+
+Sub Clear_All_Button_news()
+    Sheets("TestCase List").Select
+    Call Clear_All_news
+End Sub
+
+Sub ImportCTR_Button_news()
+    ImportCTR_news("INPUTLINKPATH")
+End Sub
+
+Public Function Clear_All_news()
+    'If Total_TC = 0 Then
+    '    Total_TC = 2000
+    'End If
+    For i = 17 To 5000
+        If (ActiveSheet.Cells(i, 2).Value <> Empty) Then
+            For j = 2 To 9
+                ActiveSheet.Cells(i, j).Value = ""
+            Next j
+        Else
+            Exit For
+        End If
+    Next i
+End Function
+
+Public Function Insert_TCs_news()
+    Dim tmp, Tc_num As Integer
+    Dim sheet_id, test_result As Integer
+    
+    'GT: Apr-09, 2020 -->
+    Dim LArray() As String
+    Dim LArray1() As String
+    
+    tmp = 17
+    Tc_num = 1
+    test_result = 0
+    For sheet_id = 1 To ThisWorkbook.Worksheets.count
+        If (ThisWorkbook.Sheets(sheet_id).Name <> "") Then
+        
+            'For test_result = 1 To 200
+                'If (ThisWorkbook.Sheets(sheet_id).Cells(5, test_result).Value = "Test Result") Then
+                    'Exit For
+                'End If
+            'Next test_result
+        
+            If (ThisWorkbook.Sheets(sheet_id).Cells(1, 1).Value <> Empty) Then
+                For Tc_id = 11 To 200
+                    If (ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 2).Value <> Empty) Then
+                        'ActiveSheet.Cells(tmp, 2).Value = ThisWorkbook.Sheets(sheet_id).Name
+                        ActiveSheet.Cells(tmp, 4).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 2).Value
+                        ActiveSheet.Cells(tmp, 2).Value = Tc_num
+                        ActiveSheet.Cells(tmp, 3).Value = ThisWorkbook.Sheets(sheet_id).Name
+                        
+                        'GT: Apr-09, 2020 -->
+               '         If (ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 3).Value <> Empty) Then
+               '             'ActiveSheet.Cells(tmp, 6).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 3).Value
+               '             'Traceability ID pattern: MSN_DUD_ACT_***, MSN_DUD_ACT_mmm_ERRnnn, MSN_DUD_ACT_mmm_CRTnnn, MSN_DUD_ACT_mmm_REGnnn, MSN_DUD_ACT_mmm_GBLnnn
+               '             'LArray = Split(ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 3).Value, vbNewLine)
+               '             LArray = Split(ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 3).Value, ",")
+               '             LArray1 = Split(LArray(0), Chr(10))
+               '             'MsgBox LArray1(0)
+               '             'MsgBox Left(LArray1(0), Len(LArray1(0)) - 7)
+               '             ActiveSheet.Cells(tmp, 6).Value = Left(LArray1(0), Len(LArray1(0)) - 7) & Chr(10) & ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 3).Value
+               '         End If
+                        
+                        ActiveSheet.Cells(tmp, 6).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 3).Value
+                        ActiveSheet.Cells(tmp, 8).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 5).Value
+                        'ActiveSheet.Cells(tmp, 5).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, test_result).Value
+                        
+                        ActiveSheet.Cells(tmp, 7).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 4).Value
+                        tmp = tmp + 1
+                        Tc_num = Tc_num + 1
+                    End If
+                Next Tc_id
+            End If
+        Else
+            Exit For
+        End If
+    Next sheet_id
+    Total_TC = Tc_num
+    
+End Function
+
+Public Function Insert_Result_news()
+    Dim tmp, Tc_num As Integer
+    Dim sheet_id, test_result As Integer
+    tmp = 17
+    Tc_num = 1
+    test_result = 0
+    
+    If (ActiveSheet.Cells(tmp, 4).Value <> Empty) Then
+        For sheet_id = 1 To ThisWorkbook.Worksheets.count
+            If (ThisWorkbook.Sheets(sheet_id).Name <> "") Then
+            
+                For test_result = 1 To 1000
+                    If (ThisWorkbook.Sheets(sheet_id).Cells(5, test_result).Value = "Test Result") Then
+                        Exit For
+                    End If
+                Next test_result
+                If (ThisWorkbook.Sheets(sheet_id).Cells(1, 1).Value <> Empty) Then
+                    For Tc_id = 11 To 200
+                        If (ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 2).Value <> Empty) Then
+                            If (ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, test_result).Value <> Empty) Then
+                                ActiveSheet.Cells(tmp, 5).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, test_result).Value
+                            'ActiveSheet.Cells(tmp, 9).Value = ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, 16).Value
+                            Else
+                                ActiveSheet.Cells(tmp, 5).Value = "NONE"
+                                ThisWorkbook.Sheets(sheet_id).Cells(Tc_id, test_result).Value = "NONE"
+                            End If
+                            tmp = tmp + 1
+                            Tc_num = Tc_num + 1
+                        End If
+                    Next Tc_id
+                End If
+            Else
+                Exit For
+            End If
+    
+        Next sheet_id
+    End If
+End Function
+
+
+Sub ImportCTR_news(searchPath)
+    Dim buf As String
+    Dim SheetName As String
+    Dim CaseName As String
+    Dim TestResult As String
+    Dim col As Integer
+    Dim separateNum As Long
+    Dim Folders() As String
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    Dim FileName As String
+    Dim rng As Range
+    Dim lRow As Long
+    Dim count As Long
+    If Dir(ThisWorkbook.Path & "\ErrList.txt") <> "" Then
+        Kill "ErrList.txt"
+    End If
+
+    'Get sub folders
+    For Each objFolders In FSO.GetFolder(searchPath).SubFolders
+        Call ImportCTR_news(objFolders.Path)
+    Next
+    
+    'Get file name
+    For Each objFiles In FSO.GetFolder(searchPath).Files
+        FileName = Dir(objFiles.Path)
+        If FileName Like "*.ctr" Then
+            Debug.Print (FileName)
+            Open objFiles.Path For Input As #1
+                Do Until EOF(1)
+                    Line Input #1, buf
+                    If buf Like "= Sheet:*" Then
+                        Debug.Print buf
+                        temp = StrComp(Mid(buf, 12, 1), ",")
+                        If temp = 0 Then
+                            SheetName = Mid(buf, 9, 3)
+                            CaseName = Mid(buf, 18, 3)
+                            TestResult = Mid(buf, 70, 4) & "ED"
+                        Else
+                            SheetName = Mid(buf, 9, 4)
+                            CaseName = Mid(buf, 19, 3)
+                            TestResult = Mid(buf, 71, 4) & "ED"
+                        End If
+                        
+                        Set rng = ThisWorkbook.Sheets(SheetName).Cells.Find(What:="Test Result", LookIn:=xlValues, LookAt:=xlWhole)
+                        If Not rng Is Nothing Then
+                            col = rng.Offset(0, 0).Column
+                        Else
+                            MsgBox ("Test Result column is not exist.")
+                            Exit Sub
+                        End If
+                        
+                        ' Test Case is exist
+                        lRow = ThisWorkbook.Sheets(SheetName).Cells(Rows.count, 1).End(xlUp).Row
+                        Set rng = ThisWorkbook.Sheets(SheetName).Range("A12:" & "A" & lRow)
+                        For Each cell In rng.Cells
+                            count = count + 1
+                            If StrComp(CaseName, WorksheetFunction.Text(cell.Value, "000")) = 0 Then
+                                ' Test Result is blank
+                                If (ThisWorkbook.Sheets(SheetName).Cells(cell.Row, col)) = "" Or _
+                                   (TestResult = "FAILED") Then
+                                    ThisWorkbook.Sheets(SheetName).Cells(cell.Row, col) = TestResult
+                                End If
+                                Exit For
+                            End If
+                            If count = lRow Then
+                                Open "ErrList.txt" For Append As #2
+                                Print #2, SheetName & ":" & CaseName & " does not exist in the test specifications."
+                                Close #2
+                            End If
+                        Next cell
+                    End If
+                Loop
+            Close #1
+        End If
+    Next
+    
+    If Dir(ThisWorkbook.Path & "\ErrList.txt") <> "" Then
+        MsgBox ("Please refer ErrList.txt")
+    End If
+    
+End Sub
