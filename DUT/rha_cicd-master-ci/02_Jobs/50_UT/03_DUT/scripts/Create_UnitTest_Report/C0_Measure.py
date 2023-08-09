@@ -59,6 +59,8 @@ class C0_Measure():
             print("\n".join(self.errorLog))
             sys.exit()
         else:
+            print("basePath:",basePath)
+            print("cprPath:",cprPath )
             print("User Input has checked!")
 
     def checkUserInput(self):

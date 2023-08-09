@@ -4,7 +4,7 @@ import sys
 import re
 import json
 import subprocess
-from scripts.Global_Properties import Global_Properties
+from Global_Properties import Global_Properties
 import glob
 from pathlib import Path
 import shutil

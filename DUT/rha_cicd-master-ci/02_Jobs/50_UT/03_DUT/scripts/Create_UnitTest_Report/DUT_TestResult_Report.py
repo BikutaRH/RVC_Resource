@@ -2,7 +2,7 @@ import win32com.client as win32
 import json
 import os
 import shutil
-from scripts.Global_Properties import Global_Properties
+from Global_Properties import Global_Properties
 import glob
 
 def rep(link):

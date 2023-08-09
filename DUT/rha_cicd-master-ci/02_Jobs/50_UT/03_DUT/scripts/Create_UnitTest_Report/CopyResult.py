@@ -29,18 +29,20 @@ import json
 import shutil
 import subprocess
 from pathlib import Path
-from scripts.Global_Properties import Global_Properties
-from C0_Measure import C0_Measure
+from Global_Properties import Global_Properties
+from C0_Measure import C0_Measure   
 from Correct_Ctr import Correct_Ctr_File 
 ########################################################################################################################
 ###                                            Global Variables deffition                                            ###
 ########################################################################################################################
 
-glbWorkSpace = environ['WORKSPACE'].replace('\\', '/')
+glbWorkSpace = os.environ['WORKSPACE'].replace('\\', '/')   
+# glbWorkSpace = ''
 glbCantataWS = ''
 glbMergeWS = ''
 indent = "  "
 jobProperties = Global_Properties()
+print(jobProperties)
 LOGGER = pycicd.ci_logger('Copy Result').logger
 ########################################################################################################################
 ###                                                Function definition                                               ###
@@ -85,7 +87,7 @@ def Copy_cpl_cpr():
     cplFiles = glob.glob(
         f'{glbCantataWS}/*/Cantata/tests/**/*.cpl', recursive=True)
     ctrFiles = glob.glob(
-        f'{glbCantataWS}/*/Cantata/tests/atest_*/*.ctr', recursive=False)
+        f'{glbCantataWS}/*/Cantata/tests/atest_*/*.ctr', recursive=True)
     projectFomart = re.compile(f'{glbCantataWS}/(.*)/Cantata/.*')
     # copy cpl files
     for cplPath in cplFiles:
@@ -93,16 +95,16 @@ def Copy_cpl_cpr():
         projectName = projectFomart.search(cplPath).group(1)
 
         copy2(cplPath,
-              f'{glbMergeWS}/input/{projectName}')
+              f'{glbMergeWS}/input/{os.path.basename(cplPath)}') #Author Huy doan: Fix override file cpl
         LOGGER.success(f'Copied {os.path.basename(cplPath)}')
     # copy ctr files and correct it.
     for ctrPath in ctrFiles:
         ctrPath = ctrPath.replace("\\", "/")
         projectName = projectFomart.search(ctrPath).group(1)
         copy2(ctrPath,
-              f'{glbMergeWS}/input/{projectName}')
+              f'{glbMergeWS}/input/{os.path.basename(ctrPath)}')#Author Huy doan: Fix override file cpr
         # Update to support issue for ctr wrong name.
-        Correct_Ctr_File().repairCtrFiles(f'{glbMergeWS}/input/{projectName}')
+        Correct_Ctr_File().repairCtrFiles(f'{glbMergeWS}/input')#Author Huy doan: Fixing to repair cpr
         LOGGER.success(f'Copied {os.path.basename(ctrPath)}')
         
 
@@ -114,7 +116,7 @@ def get_file_list():
     allObjectFiles = [Path(x).stem for x in allObjectFiles]
     allObjectFiles = list(set(allObjectFiles))
     with open(f'{glbMergeWS}/target.txt', 'w', newline='\n') as f:
-        # should add \n at the last row to solve CMT.sh issue
+        # should add \n at the last row to solve CMT.sh Workspaceissue
         f.write("\n".join(allObjectFiles) + '\n')
     return allObjectFiles
 
@@ -124,9 +126,9 @@ def CopyResult():
         data = json.load(f)
     
     global glbCantataWS,glbMergeWS
-    glbCantataWS = data["Cantata"]["Workspace"]
-    rootReport = f'{glbCantataWS}/{jobProperties.moduleRunning.capitalize()}_TestLog/Env'
-    glbMergeWS = f'{rootReport}/{jobProperties.moduleRunning.capitalize()}'
+    glbCantataWS = 'C:/Workspace/CantataWorkSpace'
+    rootReport = 'C:/Workspace/CantataWorkSpace/S4_CR52_EthSwtCont_TestLog/Env'
+    glbMergeWS = 'C:/Workspace/Create_DUT_Report/rha_cicd-master-ci/02_Jobs/50_UT/03_DUT/scripts/Create_UnitTest_Report/CovReportMerge/Env/msn'
     templateReport = f'{rootReport}/msn'
     shutil.copytree(templateReport, glbMergeWS, dirs_exist_ok=True)
     Information = get_file_list()
@@ -142,6 +144,7 @@ def generateLogResult():
     # Get user input : This path the same as target.txt path
     baseDir = glbMergeWS  # "D:/sendToVendor/CantataWS/CantataWS/X2x/U2Ax/gpt"
     baseDir = baseDir.replace("\\", "/")
+    print("The path of base dir" , baseDir)
     # Init C0 class
     C0_Init = C0_Measure(baseDir, baseDir)
     # Create Cpr File All_preprocessorMacros.cpr
@@ -173,7 +176,7 @@ def generateCtrResult():
     global glbMergeWS
     # call CMT script
     print(f"JK_INFO: Target Workspace {glbMergeWS}")
-    subprocess.call(f"sh.exe ./CMT_execute.sh", cwd=glbMergeWS, timeout=300, stdout=True)
+    subprocess.call(f"sh.exe ./CMT_execute.sh", cwd=glbMergeWS, timeout=10000, stdout=True)
     return 0  
 
 def main():

@@ -12,7 +12,7 @@ import os
 import sys
 import re
 import json
-from scripts.Global_Properties import Global_Properties
+from Global_Properties import Global_Properties
 jobProperties = Global_Properties()
 jsonData = jobProperties.targetCantataDir
 with open(jsonData, 'r') as f:

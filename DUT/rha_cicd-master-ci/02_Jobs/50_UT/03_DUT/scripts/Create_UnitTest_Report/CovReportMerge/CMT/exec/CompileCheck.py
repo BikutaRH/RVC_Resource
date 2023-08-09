@@ -61,6 +61,8 @@ class C0_Measure():
             print("\n".join(self.errorLog))
             sys.exit()
         else:
+            print("basePath:",basePath)
+            print("cprPath:",cprPath )
             print("User Input has checked!")
 
     def checkUserInput(self):
@@ -437,6 +439,7 @@ class C0_Measure():
 # Sequence called
 # Get user input : This path the same as target.txt path
 baseDir = sys.argv[1]  # "D:/sendToVendor/CantataWS/CantataWS/X2x/U2Ax/gpt"
+print("The path of base dir" , baseDir)
 baseDir = baseDir.replace("\\", "/")
 # Init C0 class
 C0_Init = C0_Measure(baseDir, baseDir)

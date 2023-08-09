@@ -106,8 +106,11 @@ class Correct_Ctr_File():
         :return: linesContent has been replaced short name which is replaced by Cantata tool to real value.
         """
         searchPath = self.posix2win(repairPath)
+        print(searchPath)
         all_crtFile = glob.glob(f"{searchPath}/**/*.ctr", recursive=True)
+        
         for ctrFile in all_crtFile:
+            print(ctrFile)
             linesContent = ""
             with open(ctrFile, 'r', newline='\r\n') as ctrContent:
                 linesContent = ctrContent.read()
