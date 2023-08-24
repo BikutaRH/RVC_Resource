@@ -108,6 +108,7 @@ def Copy_cpl_cpr():
         LOGGER.success(f'Copied {os.path.basename(ctrPath)}')
         
 #test git config
+#test git config2
 def get_file_list():
     """
     return: [list of c file name only - which is compiled successful]
