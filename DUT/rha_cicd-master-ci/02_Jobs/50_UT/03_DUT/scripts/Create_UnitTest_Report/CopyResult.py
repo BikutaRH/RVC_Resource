@@ -114,6 +114,7 @@ def Copy_cpl_cpr():
 #test git config5
 #test git config6
 #test git config7
+#test git config8
 def get_file_list():
     """
     return: [list of c file name only - which is compiled successful]
