@@ -107,7 +107,7 @@ def Copy_cpl_cpr():
         Correct_Ctr_File().repairCtrFiles(f'{glbMergeWS}/input')#Author Huy doan: Fixing to repair cpr
         LOGGER.success(f'Copied {os.path.basename(ctrPath)}')
         
-
+#test git config
 def get_file_list():
     """
     return: [list of c file name only - which is compiled successful]
