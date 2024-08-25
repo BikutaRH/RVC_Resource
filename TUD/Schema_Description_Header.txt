@@ -1,0 +1,25 @@
+/// <summary>
+/// This is a default constructor for U5x MemAccU5xCbkFileGeneration
+/// </summary>
+/// <returns>
+///     <para>
+///         None
+///     </para>
+/// </returns>
+/// <generated_value>
+///     None
+/// </generated_value>
+/// <ref>
+///	N/A
+/// </ref>
+/// <algorithm>
+/// GLOBAL VARIABLE IN:
+///     None
+///
+/// GLOBAL VARIABLE OUT:
+///     None
+///
+/// PRECONDITION:
+///     None
+///         
+/// </algorithm>
